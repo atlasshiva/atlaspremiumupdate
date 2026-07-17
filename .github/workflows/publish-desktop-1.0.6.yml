@@ -1,0 +1,37 @@
+name: Publish Atlas Premium Analysis 1.0.6
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "release-assets/1.0.6/**"
+      - ".github/workflows/publish-desktop-1.0.6.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Publish v1.0.6
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v1.0.6
+          name: Atlas Premium Analysis 1.0.6
+          make_latest: true
+          body: |
+            ## Yumuşak veri kalite kontrolü
+
+            - Dört form grubunda 5/5 zorunluluğu kaldırıldı.
+            - 2-4 maçlık form örneklerinde tahminler uyarılı olarak gösterilir.
+            - %40-59 kapsam orta veri desteği ve ölçülü güven cezası alır.
+            - %20-39 kapsam düşük veri desteği ve daha güçlü güven cezası alır.
+            - Yalnızca %20 altı kapsam veya doğrudan kaynak çatışması ilgili marketi engeller.
+            - Oran ve doğrulanmamış kadro eksikliği tahmini engellemez.
+          files: |
+            release-assets/1.0.6/Atlas-Premium-Analysis-Setup-1.0.6.exe
+            release-assets/1.0.6/Atlas-Premium-Analysis-Setup-1.0.6.exe.blockmap
+            release-assets/1.0.6/latest.yml
