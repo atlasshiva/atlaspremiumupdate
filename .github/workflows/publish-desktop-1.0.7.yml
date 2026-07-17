@@ -1,0 +1,36 @@
+name: Publish Atlas Premium Analysis 1.0.7
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "release-assets/1.0.7/**"
+      - ".github/workflows/publish-desktop-1.0.7.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Publish v1.0.7
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v1.0.7
+          name: Atlas Premium Analysis 1.0.7
+          make_latest: true
+          body: |
+            ## Günlük maç listesi iyileştirmesi
+
+            - Bugünün programındaki maçlar başlama saati geçince listeden kaldırılmaz.
+            - Canlı ve tamamlanan maçlar aynı günlük program içinde görünmeye devam eder.
+            - Program yenilendiğinde önceki maçlar kimliklerine göre korunur ve güncel durumlarıyla birleştirilir.
+            - Başka tarih, veri sağlayıcı veya saat dilimi seçildiğinde liste yeni programla değiştirilir.
+            - Yalnızca sağlayıcılardan gelen gerçek fikstürler gösterilir; uydurma maç veya sonuç eklenmez.
+          files: |
+            release-assets/1.0.7/Atlas-Premium-Analysis-Setup-1.0.7.exe
+            release-assets/1.0.7/Atlas-Premium-Analysis-Setup-1.0.7.exe.blockmap
+            release-assets/1.0.7/latest.yml
