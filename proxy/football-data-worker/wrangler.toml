@@ -1,0 +1,6 @@
+name = "atlas-football-data-proxy"
+main = "src/index.js"
+compatibility_date = "2026-07-17"
+
+[observability]
+enabled = true
