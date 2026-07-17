@@ -1,0 +1,38 @@
+name: Publish Atlas Premium Analysis 1.0.5
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "release-assets/1.0.5/**"
+      - ".github/workflows/publish-desktop-1.0.5.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Publish v1.0.5
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v1.0.5
+          name: Atlas Premium Analysis 1.0.5
+          make_latest: true
+          body: |
+            ## Yenilikler
+
+            - football-data.org doğrulama kaynağı eklendi.
+            - Cloudflare proxy üzerinden otomatik masaüstü erişimi sağlandı.
+            - Kaynak provenance ve veri çatışması denetimi eklendi.
+            - Doğrulanmış Türkçe analiz raporu varsayılan görünüm yapıldı.
+            - Eksik veya çelişkili veriler uydurulmadan açıkça işaretleniyor.
+
+            Bu sürüm mevcut kullanıcı verilerini ve API-Football çalışma yapılandırmasını korur.
+          files: |
+            release-assets/1.0.5/Atlas-Premium-Analysis-Setup-1.0.5.exe
+            release-assets/1.0.5/Atlas-Premium-Analysis-Setup-1.0.5.exe.blockmap
+            release-assets/1.0.5/latest.yml
