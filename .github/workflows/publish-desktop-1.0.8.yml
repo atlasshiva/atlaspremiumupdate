@@ -1,0 +1,38 @@
+name: Publish Atlas Premium Analysis 1.0.8
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "release-assets/1.0.8/**"
+      - ".github/workflows/publish-desktop-1.0.8.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Publish v1.0.8
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v1.0.8
+          name: Atlas Premium Analysis 1.0.8
+          make_latest: true
+          body: |
+            ## Maçkolik geçmiş form düzeltmesi
+
+            - Günlük Maçkolik fikstürlerinin analizinde geçmiş form maçları önce Maçkolik arşivinden alınır.
+            - Eksik form grupları API-Football verisiyle tamamlanır.
+            - Aynı geçmiş maç iki kaynakta bulunduğunda tekilleştirilir.
+            - Maçkolik değerleri öncelikli tutulur; eksik istatistik alanları doğrulanmış yedek kaynaktan tamamlanabilir.
+            - Takım kimlikleri iki kaynak arasında güvenli biçimde eşleştirilir.
+            - İki gerçek kaynakta da veri bulunmazsa uydurma analiz üretilmez.
+            - Tüm maçlarda görülen `Away FormEngine: No historical matches` hatasının kaynak bağlantısı düzeltildi.
+          files: |
+            release-assets/1.0.8/Atlas-Premium-Analysis-Setup-1.0.8.exe
+            release-assets/1.0.8/Atlas-Premium-Analysis-Setup-1.0.8.exe.blockmap
+            release-assets/1.0.8/latest.yml
